@@ -20,5 +20,8 @@ This project uses code and ideas from
   - Better UI
   - Basic thrust options like "circularize" or "match tilt" or "kill velocity"
   - Detect when things are not available (like no Ap due to escape) and disable the appropriate button.
+  - Detect when a maneuver node is already present (Within a few seconds?) and disable the appropriate button.
   - Save/load settings, like window placement.
   - "Undo" (may be difficult or impossible)
+  - "Move the next maneuver node" option.
+  - Automation options, like "place a circularization burn at Ap whenever you leave atmosphere."

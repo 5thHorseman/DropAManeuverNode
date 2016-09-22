@@ -61,7 +61,7 @@ namespace DropAManeuverNode
             }
         }
 
-        public Rect MainMenu = new Rect(20, 20, 235, 200);
+        public Rect MainMenu = new Rect(200, 200, 205, 235);
         void DrawMainMenu(int windowID)
         {
             ManeuverNode node;
@@ -76,19 +76,17 @@ namespace DropAManeuverNode
             if (GUI.Button(new Rect(5, vpos += 25, 200, 20), "At Periapsis"))
             {
                 time = FlightGlobals.ActiveVessel.orbit.timeToPe;
-                if (time == 0)
+                if (time != 0)
                 {
                     node = DropAManeuverNode_Time(time);
-                    // x is radial
-                    // y is normal
-                    // z is grade
+                    // x is radial, y is normal, z is -grade
                     // node.DeltaV.z = 1000;
                 }
             }
             if (GUI.Button(new Rect(5, vpos += 25, 200, 20), "At Apoapsis"))
             {
                 time = FlightGlobals.ActiveVessel.orbit.timeToAp;
-                if (time == 0)
+                if (time != 0)
                 {
                     node = DropAManeuverNode_Time(time);
                 }
@@ -96,7 +94,7 @@ namespace DropAManeuverNode
             if (GUI.Button(new Rect(5, vpos += 25, 200, 20), "Halfway Around Orbit"))
             {
                 time = FlightGlobals.ActiveVessel.orbit.period/2;
-                if (time == 0)
+                if (time != 0)
                 {
                     node = DropAManeuverNode_Time(time);
                 }
@@ -104,7 +102,7 @@ namespace DropAManeuverNode
             if (GUI.Button(new Rect(5, vpos += 25, 200, 20), "Next Oribt"))
             {
                 time = FlightGlobals.ActiveVessel.orbit.period;
-                if (time == 0)
+                if (time != 0)
                 {
                     node = DropAManeuverNode_Time(time);
                 }
@@ -112,23 +110,23 @@ namespace DropAManeuverNode
             if (GUI.Button(new Rect(5, vpos += 25, 200, 20), "Next Closest Approach"))
             {
                 time = FlightGlobals.ActiveVessel.orbit.closestTgtApprUT;
-                if (time == 0)
+                if (time != 0)
                 {
                     node = DropAManeuverNode_UT(time);
                 }
             }
-            if (GUI.Button(new Rect(5, vpos += 25, 200, 20), "timeToTransition1"))
+            if (GUI.Button(new Rect(5, vpos += 25, 200, 20), "timeToTransition1 (?)"))
             {
                 time = FlightGlobals.ActiveVessel.orbit.timeToTransition1;
-                if (time == 0)
+                if (time != 0)
                 {
                     node = DropAManeuverNode_Time(time);
                 }
             }
-            if (GUI.Button(new Rect(5, vpos += 25, 200, 20), "timeToTransition2"))
+            if (GUI.Button(new Rect(5, vpos += 25, 200, 20), "timeToTransition2 (?)"))
             {
                 time = FlightGlobals.ActiveVessel.orbit.timeToTransition2;
-                if (time == 0)
+                if (time != 0)
                 {
                     node = DropAManeuverNode_Time(time);
                 }

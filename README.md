@@ -8,6 +8,7 @@ MIT (To match that of KSPCasher, whose Stock Toolbar code I used)
 This project uses code for Stock Toolbar support from KSPCasher https://github.com/armazac/kspcasher
 
 # CHANGELOG:
+- 0.1.1: Bugfix. I had some "==" where I should have had "!=" :o
 - 0.1: (Current) Initial build.
   - Stock Toolbar support.
   - Buttons to add a maneuver node at certain orbital milestones.

@@ -18,19 +18,47 @@ namespace DropAManeuverNode
     public class DropAManeuverNode : MonoBehaviour
     {
         ApplicationLauncherButton ToolbarButton;
+        private IButton BToolbarButton;
         private bool ShowGUI = false;
         private bool ShowedGUI = false;
 
         public void Awake()
         {
-            GameEvents.onGUIApplicationLauncherReady.Add(OnGUIApplicationLauncherReady);
+            if (!ToolbarManager.ToolbarAvailable)
+            {
+                GameEvents.onGUIApplicationLauncherReady.Add(OnGUIApplicationLauncherReady);
+            }
+        }
+
+        public void Start()
+        {
+            if (ToolbarManager.ToolbarAvailable)
+            {
+                BToolbarButton = ToolbarManager.Instance.add("DropAManeuverNode", "GUI");
+                BToolbarButton.TexturePath = "DropAManeuverNode/DAMN_Toolbar24";
+                BToolbarButton.ToolTip = "Drop A Maneuver Node";
+                BToolbarButton.Enabled = true;
+                BToolbarButton.OnClick += (e) => { ToggleGUI(); };
+            }
         }
 
         public void OnDisable()
         {
-            GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIApplicationLauncherReady);
-            ApplicationLauncher.Instance.RemoveModApplication(ToolbarButton);
-            GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIApplicationLauncherReady);
+            if (!ToolbarManager.ToolbarAvailable)
+            {
+                GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIApplicationLauncherReady);
+                ApplicationLauncher.Instance.RemoveModApplication(ToolbarButton);
+                GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIApplicationLauncherReady);
+            }
+        }
+
+        public void OnDestroy()
+        {
+            if (BToolbarButton != null)
+            {
+                BToolbarButton.Destroy();
+                BToolbarButton = null;
+            }
         }
 
         public ManeuverNode DropAManeuverNode_Time(double seconds)
@@ -94,14 +122,15 @@ namespace DropAManeuverNode
                 MainMenu = GUI.Window(0, MainMenu, DrawMainMenu, "Drop A Maneuver Node");
                 if (!ShowedGUI)
                 {
-                    MainMenu.x = Mouse.screenPos.x - 210;
-                    MainMenu.y = Mouse.screenPos.y + 5;
+                    // Position the window near the button while making sure it's still on the screen
+                    MainMenu.x = Mathf.Max(10, Mouse.screenPos.x - 210);
+                    MainMenu.y = Mathf.Min(Screen.height - MainMenu.height - 50, Mouse.screenPos.y + 5);
                     ShowedGUI = true;
                 }
             }
         }
 
-        public Rect MainMenu = new Rect(200, 200, 210, 20 + (9 * 25) + 5);
+        public Rect MainMenu = new Rect(200, 200, 210, 20 + (7 * 25) + 5);
 
         void DrawMainMenu(int windowID)
         {
